@@ -1,11 +1,16 @@
 #include<iostream>
 using namespace std ;
 
-int& func(int a) {
-    int num = a ;
-    int& ans = num ;
+// int& func(int a) {
+//     int num = a ;
+//     int& ans = num ;
    
-    return ans ;
+//     return ans ;
+// }      this one is a bad practice for reference var
+
+int* fun(int n ) {
+    int* ptr = &n ;
+    return ptr ;
 }
 
 void update2(int& n ) {
@@ -36,6 +41,6 @@ cout<< "Before "<< n << endl ;
 update2(n);
 cout<<"After" << n << endl ;
 
-cout<<func(n) ;
+cout<<fun(n) ;
 
 }
