@@ -1,4 +1,5 @@
 #include<iostream>
+#include<map>
 using namespace std ;
 
 class Node {
@@ -108,6 +109,52 @@ class Node {
         }
     }
 
+bool detectLoop(Node* head) {
+
+    if(head == NULL) 
+        return false;
+
+    map<Node* , bool> visited;
+
+    Node* temp = head ;
+
+    while(temp != NULL) {
+
+        // cycle is present
+        if(visited[temp] == true) {
+            // cout<< "Present on element" << temp -> data << endl ;
+            return true ;
+        }
+
+        visited[temp] = true;
+        temp = temp -> next;
+    }
+        return false ;
+}
+
+Node* floydDetectLoop(Node* head) {
+
+    if(head == NULL) 
+        return NULL ;
+
+    Node* slow = head ;
+    Node* fast = head ;
+
+    while(slow != NULL && fast != NULL) {
+        fast = fast -> next ;
+        if(fast != NULL) {
+            fast = fast -> next ;
+        }
+
+        slow = slow -> next ;
+
+        if(slow == fast) {
+            cout <<"present at" << slow -> data << endl ;
+            return slow ;
+        }
+    }
+        return NULL ;
+}
 
 int main () {
 
@@ -119,19 +166,34 @@ int main () {
     // head pointed to node1  
     Node* head = node1 ;
     Node* tail = node1 ; 
-    print(head) ;
+    // print(head) ;
 
     InsertAtTail(tail , 12) ;
-    print(head) ;
+    // print(head) ;
 
     InsertAtTail(tail , 15) ;
-    print(head) ;
+    // print(head) ;
 
     insertAtPosition(head , tail  , 4 , 22) ;
-    print(head) ;
+
+   
+
 
     cout << "head" << head -> data << endl ;
+    // cout << "head" << head -> data << endl ;
     cout << "tail" << tail -> data << endl ;
+    print(head) ;
+ 
+    tail -> next = head -> next ;
 
+    if(floydDetectLoop(head) != NULL) {
+        cout << "Cycle is present" << endl ;
+    }
+
+    else{
+        cout << "no cycle" << endl ;
+    }
+
+    
     return 0 ;
 }
