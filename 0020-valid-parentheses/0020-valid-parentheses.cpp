@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool isValid(string s) {
+
+        stack<char> st;
+
+        for(char ch : s) {
+
+            // opening bracket
+            if(ch == '(' || ch == '{' || ch == '[') {
+                st.push(ch);
+            }
+
+            // closing bracket
+            else {
+
+                if(st.empty()) {
+                    return false;
+                }
+
+                char top = st.top();
+
+                if((ch == ')' && top == '(') ||
+                   (ch == '}' && top == '{') ||
+                   (ch == ']' && top == '[')) {
+
+                    st.pop();
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        return st.empty();
+    }
+};
