@@ -10,58 +10,32 @@
  * };
  */
 class Solution {
-public:
+private:
     int height(TreeNode* root) {
-        if (root == NULL) {
-            return 0;
+        if(root == NULL) {
+            return 0 ;
         }
 
-        queue<TreeNode*> q;
-        q.push(root);
-        q.push(NULL);
+        int left = height(root -> left) ;
+        int right = height(root -> right) ;
 
-        int h = 0;
-
-        while (q.size() > 0) {
-            TreeNode* curr = q.front();
-            q.pop();
-
-            if (curr == NULL) {
-                h++;
-                if (!q.empty()) {
-                    q.push(NULL);
-                    continue;
-                }
-                else {
-                    break;
-                }
-            }
-
-            if (curr->left != NULL) {
-                q.push(curr->left);
-            }
-
-            if (curr->right != NULL) {
-                q.push(curr->right);
-            }
-        }
-
-        return h;
+        return max(left , right) + 1 ;
+        
     }
-
+public:
     bool isBalanced(TreeNode* root) {
-        if (root == NULL) {
-            return true;
+        if(root == NULL ) {
+            return true ;
         }
 
-        int left = height(root->left);
-        int right = height(root->right);
+        int left = height(root -> left) ;
+        int right = height(root -> right) ;
 
-        if (abs(left - right) > 1) {
-            return false;
+        if(abs(left - right) > 1)  {
+            return false ;
         }
 
-        return isBalanced(root->left) &&
-               isBalanced(root->right);
+        return isBalanced(root -> left) &&
+                isBalanced(root -> right) ;
     }
 };
